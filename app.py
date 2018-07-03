@@ -29,8 +29,6 @@ async def updateMiningInfo(apiKey, secretKey):
                 ],
             },
         },
-        'timeout': 30000,
-        'userAgent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.71 Safari/537.36',
         'apiKey': apiKey,
         'secret': secretKey,
     })
@@ -50,8 +48,6 @@ async def startTrading(apiKey, secretKey):
     trading_fee_sum = 0
 
     coinex = ccxt.coinex({
-        'timeout': 30000,
-        'userAgent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.71 Safari/537.36',
         'apiKey': apiKey,
         'secret': secretKey,
     })
@@ -95,7 +91,7 @@ async def startTrading(apiKey, secretKey):
                 trading_fee_sum += buy_order['fee']['cost'] * trading_price
                 print('计入限价买单手续费，trading_fee_sum', trading_fee_sum)
 
-        time.sleep(2)
+        time.sleep(1)
 
     openedOrders = await coinex.fetch_open_orders('SC/USDT')
     for order in openedOrders:
