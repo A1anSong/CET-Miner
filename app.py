@@ -105,7 +105,7 @@ async def startTrading(apiKey, secretKey):
     for order in openedOrders:
         await coinex.cancel_order(order['id'], 'SC/USDT')
 
-    print('撤销未成交的订单')
+    print('本小时刷单结束，撤销未成交的订单')
 
     await coinex.close()
 
@@ -122,11 +122,11 @@ if __name__ == '__main__':
 
     while True:
         current_hour = datetime.utcnow().hour
-        if CURRENT_HOUR != current_hour:
+        if CURRENT_HOUR != current_hour and datetime.utcnow().minute > 5:
             CONFIG = readUserConfig('config/apikeys.cfg')
             CURRENT_HOUR = current_hour
             loop.run_until_complete(updateMiningInfo(CONFIG.defaults()['apikey'], CONFIG.defaults()['secretkey']))
             tasks = [startTrading(CONFIG[option]['apikey'], CONFIG[option]['secretkey']) for option in
                      CONFIG.sections()]
             loop.run_until_complete(asyncio.gather(*tasks))
-        time.sleep(600)
+        time.sleep(60)
