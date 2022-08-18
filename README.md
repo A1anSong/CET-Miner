@@ -1,3 +1,5 @@
+# 2022.08.19: data migration
+
 # CET挖矿机器人
 
 感兴趣的可以使用我的邀请链接注册CoinEx：
